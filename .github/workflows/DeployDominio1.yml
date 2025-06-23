@@ -1,4 +1,4 @@
-name: Deploy Unimach Microservices to EC2
+name: Deploy Unimach2 Microservices to EC2
  
 on:
   push:
