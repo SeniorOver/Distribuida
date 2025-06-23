@@ -1,6 +1,6 @@
 {
   "name": "auth-service",
-  " "version": "1.0.0",
+  "version": "1.0.0",
   "description": "Microservicio de autenticación para UniMatch",
   "main": "index.js",
   "scripts": {
