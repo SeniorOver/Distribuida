@@ -28,7 +28,8 @@ jobs:
           context: ./backend/AutenticacionySeguridad/AuthService
           file: ./backend/AutenticacionySeguridad/AuthService/Dockerfile
           push: true
-          tags: erickfabricioc/AuthService:latest
+          tags: erickfabricioc/authservice:latest
+
  
  
   deploy_to_ec2:
