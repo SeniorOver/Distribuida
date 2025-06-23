@@ -1,21 +1,27 @@
+# Usa una imagen base de Node.js
 FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copia los archivos de configuración
+# Copia primero los archivos de dependencias para aprovechar la caché de Docker
 COPY package*.json ./
+
+# Instala las dependencias del proyecto
 RUN npm install
 
-# Copia todos los archivos del proyecto
-COPY . .
+# Copia el schema de Prisma a la ubicación que Prisma espera por defecto
+# La ruta de origen es relativa al contexto de build (la carpeta AuthService)
+COPY src/config/schema.prisma ./prisma/schema.prisma
 
-# Copia el archivo .env (si tienes uno) para las variables de entorno
-COPY .env ./
-
-# Copia el archivo prisma.schema a la ruta esperada dentro del contenedor
-COPY ./Backend/AutenticacionySeguridad/AuthService/src/config/schema.prisma ./prisma/schema.prisma
-
-# Genera el cliente Prisma
+# Genera el cliente de Prisma. Ahora sí encontrará el schema.
 RUN npx prisma generate
 
+# Copia el resto de los archivos de tu aplicación
+COPY . .
+
+# Expone el puerto que usará tu aplicación
 EXPOSE 3001
+
+# El comando para iniciar tu aplicación
 CMD ["npm", "start"]
